@@ -1,14 +1,14 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Container } from '@/components/layout/Container'
 import { SectionHeader } from '@/components/layout/SectionHeader'
-import { MetricCard } from '@/features/partner/components/MetricCard'
 import { useAuthStore } from '@/stores/authStore'
 import { useEventsByPartner } from '@/features/event/hooks'
 import { usePartners } from '@/features/partner/hooks'
-import { Calendar, Users, Trophy, Plus, Clock, CheckCircle, Zap } from 'lucide-react'
+import { PartnerCard } from '@/features/partner/components/PartnerCard'
+import { Plus, Clock, CheckCircle, Zap, Pencil, Eye, ExternalLink } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import type { EventStatus } from '@/features/event/types'
 
@@ -60,21 +60,13 @@ export default function PartnerPage() {
     [partners, currentUser?.id],
   )
 
+  const [showPreview, setShowPreview] = useState(false)
   const { data: events } = useEventsByPartner(myPartner?.id ?? '')
 
   const stats = useMemo(() => {
-    if (!events) return { total: 0, active: 0, totalParticipants: 0, participationRate: '0' }
+    if (!events) return { total: 0, active: 0 }
     const active = events.filter((e) => e.status === 'active').length
-    const totalParticipants = events.reduce((sum, e) => sum + e.participantCount, 0)
-    const avgParticipants = events.length > 0
-      ? Math.round(totalParticipants / events.length)
-      : 0
-    return {
-      total: events.length,
-      active,
-      totalParticipants,
-      avgParticipants,
-    }
+    return { total: events.length, active }
   }, [events])
 
   // 최근 이벤트 (최신순 5개)
@@ -109,11 +101,19 @@ export default function PartnerPage() {
   return (
     <Container className="flex flex-col gap-6 lg:gap-8">
       <div className="flex items-center justify-between">
-        <SectionHeader
-          level="page"
-          title={<>PARTNER <span className="text-primary italic">DASHBOARD</span></>}
-          subtitle="이벤트 관리"
-        />
+        <div>
+          <SectionHeader
+            level="page"
+            title={<>PARTNER <span className="text-primary italic">DASHBOARD</span></>}
+          />
+          <div className="flex items-center gap-4 mt-2 text-sm text-on-surface-variant">
+            <span>팔로워 <strong className="text-on-surface">{formatNumber(myPartner?.followerCount ?? 0)}</strong></span>
+            <span className="text-on-surface-variant/30">·</span>
+            <span>이벤트 <strong className="text-on-surface">{stats.total}개</strong></span>
+            <span className="text-on-surface-variant/30">·</span>
+            <span>진행중 <strong className="text-secondary">{stats.active}개</strong></span>
+          </div>
+        </div>
         <Link
           href="/partner/events/new"
           className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-primary/90 transition-colors"
@@ -123,32 +123,53 @@ export default function PartnerPage() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <MetricCard
-          icon={Calendar}
-          iconColor="text-primary"
-          label="총 이벤트"
-          value={String(stats.total)}
-        />
-        <MetricCard
-          icon={Zap}
-          iconColor="text-secondary"
-          label="진행중"
-          value={String(stats.active)}
-        />
-        <MetricCard
-          icon={Users}
-          iconColor="text-tertiary"
-          label="총 참여자"
-          value={formatNumber(stats.totalParticipants)}
-        />
-        <MetricCard
-          icon={Trophy}
-          iconColor="text-primary"
-          label="팔로워"
-          value={formatNumber(myPartner?.followerCount ?? 0)}
-        />
-      </div>
+      <section className="bg-surface-container-low rounded-3xl p-6 md:p-8">
+        <div className="flex justify-between items-center mb-4">
+          <SectionHeader level="section" title="소개글" />
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setShowPreview(true)}
+              className="flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-on-surface transition-colors"
+            >
+              <Eye className="w-4 h-4" />
+              프리뷰
+            </button>
+            <Link
+              href={`/p/${myPartner?.id ?? ''}`}
+              className="flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-on-surface transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" />
+              팬 뷰
+            </Link>
+            <Link
+              href="/partner/profile/edit"
+              className="flex items-center gap-1.5 text-sm text-primary font-bold hover:text-primary/80 transition-colors"
+            >
+              <Pencil className="w-4 h-4" />
+              편집
+            </Link>
+          </div>
+        </div>
+
+        <p className="text-on-surface-variant text-sm leading-relaxed line-clamp-3">
+          {myPartner?.bio || '아직 소개글이 없습니다. 편집 버튼을 눌러 팬에게 보여줄 소개글을 작성하세요.'}
+        </p>
+      </section>
+
+      {showPreview && myPartner && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+          onClick={() => setShowPreview(false)}
+        >
+          <div
+            className="w-48"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <PartnerCard partner={myPartner} />
+          </div>
+        </div>
+      )}
 
       <section className="bg-surface-container-low rounded-3xl p-6 md:p-8">
         <div className="flex justify-between items-center mb-6">

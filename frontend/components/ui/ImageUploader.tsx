@@ -10,6 +10,7 @@ import {
   validateImageFile,
   cropImage,
   EVENT_IMAGE_SPEC,
+  type ImageSpec,
 } from '@/lib/image-utils'
 
 interface ImageUploaderProps {
@@ -19,6 +20,7 @@ interface ImageUploaderProps {
   onError?: (message: string) => void
   disabled?: boolean
   className?: string
+  imageSpec?: ImageSpec
 }
 
 /**
@@ -37,6 +39,7 @@ export function ImageUploader({
   onError,
   disabled = false,
   className,
+  imageSpec = EVENT_IMAGE_SPEC,
 }: ImageUploaderProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
@@ -49,7 +52,7 @@ export function ImageUploader({
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
 
-  const aspectRatio = EVENT_IMAGE_SPEC.width / EVENT_IMAGE_SPEC.height
+  const aspectRatio = imageSpec.width / imageSpec.height
 
   const onImageLoad = useCallback(
     (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -79,7 +82,7 @@ export function ImageUploader({
         fileInputRef.current.value = ''
       }
 
-      const validation = validateImageFile(file)
+      const validation = validateImageFile(file, imageSpec.maxFileSizeMB)
       if (!validation.valid) {
         onError?.(validation.error ?? '유효하지 않은 이미지입니다.')
         return
@@ -116,8 +119,8 @@ export function ImageUploader({
       }
 
       const processedBlob = await cropImage(selectedFile, cropArea, {
-        width: EVENT_IMAGE_SPEC.width,
-        height: EVENT_IMAGE_SPEC.height,
+        width: imageSpec.width,
+        height: imageSpec.height,
         quality: 0.9,
       })
 
@@ -175,12 +178,12 @@ export function ImageUploader({
         disabled={disabled || isConverting}
       />
 
-      {/* Clickable upload area — 16:9 */}
+      {/* Clickable upload area — aspect ratio from imageSpec */}
       <div
         onClick={handleClick}
+        style={{ aspectRatio: `${imageSpec.width} / ${imageSpec.height}` }}
         className={cn(
           'flex items-center justify-center overflow-hidden rounded-xl border-2 border-dashed transition-all',
-          'aspect-square',
           disabled || isConverting
             ? 'cursor-not-allowed border-outline-variant/10 opacity-50'
             : 'cursor-pointer border-outline-variant/20 hover:border-tertiary hover:shadow-[0_0_10px_rgba(129,236,255,0.15)]',
@@ -196,7 +199,7 @@ export function ImageUploader({
             <ImagePlus className="size-10 opacity-50" strokeWidth={1.5} />
             <span className="text-sm font-medium">이미지 선택</span>
             <span className="text-xs opacity-60">
-              JPEG, PNG, WebP · 최대 {EVENT_IMAGE_SPEC.maxFileSizeMB}MB
+              JPEG, PNG, WebP · 최대 {imageSpec.maxFileSizeMB}MB
             </span>
           </div>
         ) : (
@@ -229,7 +232,7 @@ export function ImageUploader({
               <div className="shrink-0 px-6 pt-6 pb-2">
                 <h2 className="font-headline text-lg font-bold text-on-surface">이미지 크롭</h2>
                 <p className="mt-1 text-sm text-on-surface-variant">
-                  이벤트 이미지 비율 ({EVENT_IMAGE_SPEC.aspectRatio})
+                  이미지 비율 ({imageSpec.aspectRatio})
                 </p>
               </div>
 

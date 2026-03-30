@@ -34,6 +34,22 @@ export const EVENT_IMAGE_SPEC: ImageSpec = {
   maxFileSizeMB: 5,
 } as const
 
+/** 프로필 섬네일 스펙: 1:1, 512x512 */
+export const PROFILE_IMAGE_SPEC: ImageSpec = {
+  width: 512,
+  height: 512,
+  aspectRatio: '1:1',
+  maxFileSizeMB: 5,
+} as const
+
+/** 커버 이미지 스펙: 16:9 느낌의 와이드, 1200x400 */
+export const COVER_IMAGE_SPEC: ImageSpec = {
+  width: 1200,
+  height: 400,
+  aspectRatio: '3:1',
+  maxFileSizeMB: 5,
+} as const
+
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp'] as const
 
 export interface ValidationResult {
@@ -41,15 +57,15 @@ export interface ValidationResult {
   error?: string
 }
 
-export function validateImageFile(file: File): ValidationResult {
+export function validateImageFile(file: File, maxFileSizeMB = EVENT_IMAGE_SPEC.maxFileSizeMB): ValidationResult {
   if (!ALLOWED_MIME_TYPES.includes(file.type as typeof ALLOWED_MIME_TYPES[number])) {
     return { valid: false, error: `지원하지 않는 파일 형식입니다. (JPEG, PNG, WebP만 가능)` }
   }
 
-  const maxBytes = EVENT_IMAGE_SPEC.maxFileSizeMB * 1024 * 1024
+  const maxBytes = maxFileSizeMB * 1024 * 1024
   if (file.size > maxBytes) {
     const sizeMB = (file.size / (1024 * 1024)).toFixed(1)
-    return { valid: false, error: `파일 크기(${sizeMB}MB)가 최대 ${EVENT_IMAGE_SPEC.maxFileSizeMB}MB를 초과합니다.` }
+    return { valid: false, error: `파일 크기(${sizeMB}MB)가 최대 ${maxFileSizeMB}MB를 초과합니다.` }
   }
 
   return { valid: true }

@@ -19,6 +19,7 @@ export interface Partner {
   category: PartnerCategory
   bio: string
   profileImage: string
+  coverImage: string
   followerCount: number
   activeEventCount: number
   createdAt: string

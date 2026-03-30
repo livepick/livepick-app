@@ -101,7 +101,15 @@ export default function ProfilePage({
         ref={coverRef}
         className="relative -mx-4 md:-mx-6 h-48 bg-surface-container-high overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/10 opacity-50" />
+        {partner.coverImage ? (
+          <img
+            src={partner.coverImage}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/10 opacity-50" />
+        )}
         <div
           className={`absolute inset-x-0 top-0 z-20 flex items-center px-4 pt-3 transition-opacity duration-300 ${
             showStickyBar ? 'opacity-0 pointer-events-none' : 'opacity-100'
