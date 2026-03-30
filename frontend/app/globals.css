@@ -162,3 +162,34 @@ body {
 @utility zoom-in-95          { animation: dialog-zoom-in 300ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 @utility slide-in-from-bottom { animation: dialog-slide-up 300ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 @utility slide-in-from-bottom-8 { animation: dialog-slide-up-sm 500ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* ===================================================
+ * Draw System — Animation Keyframes
+ * =================================================== */
+@keyframes draw-glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(243, 130, 255, 0.3); }
+  50% { box-shadow: 0 0 50px rgba(243, 130, 255, 0.7), 0 0 80px rgba(243, 130, 255, 0.3); }
+}
+
+@keyframes draw-winner-reveal {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes draw-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.draw-glow-pulse { animation: draw-glow-pulse 1.5s ease-in-out infinite; }
+.draw-winner-reveal { animation: draw-winner-reveal 600ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.draw-fade-in { animation: draw-fade-in 400ms ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .draw-glow-pulse,
+  .draw-winner-reveal,
+  .draw-fade-in {
+    animation: none;
+  }
+}

@@ -16,6 +16,7 @@ export interface Event {
   winnerCount: number
   participantCount: number
   createdAt: string
+  winners?: string[]
 }
 
 export interface EventParticipation {

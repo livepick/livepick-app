@@ -115,6 +115,68 @@ export const MOCK_EVENTS: Event[] = [
     participantCount: 0,
     createdAt: '2026-03-30T00:00:00Z',
   },
+  // ── p1 테스트용 이벤트 (추첨 흐름 확인) ──
+  // 1) 진행중
+  {
+    id: 'e13',
+    partnerId: 'p1',
+    title: '라면 먹방 구독자 감사 이벤트',
+    description: '50만 구독 기념! 프리미엄 라면 세트를 3명에게 드립니다.',
+    imageUrl:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuALzzr8g7xuV_RSCMJz7Aj6QzYHBd0xDCUSuEjDO2T0l4tHkANOTuQVsqN-3g8Qa09awfYB0FI0rhnJy6l7TtjM3EDe3xNQYAPMfO7QA0zFj3pKygT-SmedXiYz8yLmCnYf2uL7dGuCy_eckRdBGYsSpYPwzdBnoaKdh8PcXDLslRFJamcIiyu9TlGvvDbOMcAvn-SQWL-far_s06NrKfj3JxR_M4yNyV6UejEm-95Kz2undJEsUYYJfQZitjdnW28jKWhpuH5UDkc',
+    startDate: '2026-03-29T00:00:00Z',
+    endDate: '2026-04-05T23:59:00Z',
+    status: 'active',
+    winnerCount: 3,
+    participantCount: 4500,
+    createdAt: '2026-03-28T00:00:00Z',
+  },
+  // 2) 참여 완료 (closed, 추첨 전)
+  {
+    id: 'e14',
+    partnerId: 'p1',
+    title: '치킨 먹방 ASMR 이벤트',
+    description: '치킨 브랜드 협찬 이벤트! 치킨 기프티콘 5명 추첨.',
+    imageUrl:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuD48Fcxib30PWZuUARqhll88mBM87dBHrbdaKgDzsKPkQEAG77XZM18n1RJgRnotn6K_7OpLmmOGE628hyMe5Ou8c1tvm70EVY9XFccjkcvCtXE5MMEg-8s0wcZzWCYryAR-EXB9Pyx1QNhO8ZQRHIQ_0hmWX4YO8mFnFLPnbNjlEAtrc21QUWnnveo66_S1S6JpGrNZdLFl6dZsrfISpunanWmrHmB-umTVyGA9V9Ocwjs3Ka_3a4EYVY2nlDU04yaa3N1hESa7Is',
+    startDate: '2026-03-15T00:00:00Z',
+    endDate: '2026-03-25T23:59:00Z',
+    status: 'closed',
+    winnerCount: 5,
+    participantCount: 6700,
+    createdAt: '2026-03-10T00:00:00Z',
+  },
+  // 3) 참여 완료 (closed, 추첨 전)
+  {
+    id: 'e15',
+    partnerId: 'p1',
+    title: '삼겹살 파티 초대권 추첨',
+    description: '오프라인 삼겹살 파티 초대권 2명 추첨합니다.',
+    imageUrl:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDlhbyib7UEggE4mfSUD-QxAYxmwxWicYF03c8sX22mq3lsvo8Ycxd0AwKP72ccG8xPbxDshq3-R_J3akOPX68Cu3gWhgJ05GLAZyJufEMnDt_9IkWbwd-4y-6R8NVfobW_3fXABDQKvXBVLbvKaDWq3k3Hzu8Pc3zPMM7C4xInvVS2RM-hiAvCY3L0NfNH7_uFTE3wZuu118MYWh8ebRdVjzSDRgCE4tJc5PwXD7OJPIH67Ov2t4MtUif8ymi_r-fYhqveO4aERRA',
+    startDate: '2026-03-10T00:00:00Z',
+    endDate: '2026-03-20T23:59:00Z',
+    status: 'closed',
+    winnerCount: 2,
+    participantCount: 3200,
+    createdAt: '2026-03-05T00:00:00Z',
+  },
+  // 4) 추첨 완료 (closed + winners)
+  {
+    id: 'e16',
+    partnerId: 'p1',
+    title: '초콜릿 세트 발렌타인 이벤트',
+    description: '발렌타인 기념 프리미엄 초콜릿 세트 3명 추첨.',
+    imageUrl:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuD3zRRrmegUQx6t63_SblT0WvNyxlMdidph_FuBDdjk5FHvVAtxOHR0oFBzNeiVxJo9b6-TnJFbAUDnA_z0olSz7-rEslyAXmxM-gQ6Q_h1XrMcX-3iIScgPRaI7N7JA795_pNOCzUAzK8_qV3OkKIQmJ0BraCTasUsLjL9l_yGb_Y75XKb9PXFUBEGrPpkCBnnj7FBqFhEo1D3l25zqDGDfvvcQLvA4dCrHr6cnwgvFqJH74zn1W7T9ZJDt83FqjHs5xRd4xcgIOg',
+    startDate: '2026-02-10T00:00:00Z',
+    endDate: '2026-02-14T23:59:00Z',
+    status: 'closed',
+    winnerCount: 3,
+    participantCount: 8100,
+    createdAt: '2026-02-05T00:00:00Z',
+    winners: ['participant_7', 'participant_23', 'participant_56'],
+  },
   // Closed events (4)
   {
     id: 'e9',
@@ -129,6 +191,7 @@ export const MOCK_EVENTS: Event[] = [
     winnerCount: 5,
     participantCount: 9800,
     createdAt: '2026-01-20T00:00:00Z',
+    winners: ['participant_3', 'participant_17', 'participant_42', 'participant_68', 'participant_91'],
   },
   {
     id: 'e10',

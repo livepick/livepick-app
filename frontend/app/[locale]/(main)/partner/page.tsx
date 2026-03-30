@@ -208,10 +208,14 @@ export default function PartnerPage() {
                   <span
                     className={cn(
                       'text-xs font-bold px-2 py-1 rounded-md',
-                      STATUS_STYLES[event.status],
+                      event.status === 'closed' && event.winners && event.winners.length > 0
+                        ? 'bg-primary/20 text-primary'
+                        : STATUS_STYLES[event.status],
                     )}
                   >
-                    {STATUS_LABELS[event.status]}
+                    {event.status === 'closed' && event.winners && event.winners.length > 0
+                      ? '추첨 완료'
+                      : STATUS_LABELS[event.status]}
                   </span>
                 </div>
               </Link>

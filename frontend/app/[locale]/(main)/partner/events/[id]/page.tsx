@@ -166,9 +166,14 @@ export default function EventManagePage({
           </Button>
         )}
         {event.status === 'closed' && (
-          <Button variant="primary" size="md" className="flex-1">
-            당첨자 추첨
-          </Button>
+          <Link
+            href={`/partner/events/${event.id}/draw`}
+            className="flex-1"
+          >
+            <Button variant="primary" size="md" fullWidth>
+              {event.winners && event.winners.length > 0 ? '당첨자 확인' : '당첨자 추첨'}
+            </Button>
+          </Link>
         )}
         <Button variant="secondary" size="md" className="flex-1">
           이벤트 수정

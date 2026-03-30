@@ -7,6 +7,7 @@ import { Container } from '@/components/layout/Container'
 import { SectionHeader } from '@/components/layout/SectionHeader'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
+import { ImageUploader } from '@/components/ui/ImageUploader'
 import { useAuthStore } from '@/stores/authStore'
 import { ArrowLeft } from 'lucide-react'
 import { cn } from '@/lib/cn'
@@ -17,7 +18,8 @@ export default function EventCreatePage() {
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
+  const [imageBlob, setImageBlob] = useState<Blob | null>(null)
+  const [imageError, setImageError] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [winnerCount, setWinnerCount] = useState('')
@@ -96,12 +98,14 @@ export default function EventCreatePage() {
           />
         </div>
 
-        <Input
-          label="이벤트 이미지 URL (선택)"
-          placeholder="https://example.com/image.jpg"
-          value={imageUrl}
-          onChange={setImageUrl}
+        <ImageUploader
+          label="이벤트 이미지 (선택)"
+          onImageReady={setImageBlob}
+          onError={setImageError}
         />
+        {imageError && (
+          <p className="text-xs text-error">{imageError}</p>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col gap-1.5">

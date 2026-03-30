@@ -10,6 +10,7 @@ import { MOCK_PARTNERS } from '@/mocks/partners'
 import { MOCK_PARTICIPATIONS } from '@/mocks/participations'
 import { MOCK_USERS } from '@/mocks/users'
 import { EventStatusChip } from '@/features/event/components/EventStatusChip'
+import { JoinEventDialog, type JoinFormData } from '@/features/event/components/JoinEventDialog'
 import { useNavigationHistory } from '@/hooks/useNavigationHistory'
 
 function formatCount(count: number): string {
@@ -35,6 +36,14 @@ export default function EventDetailPage({
   const router = useRouter()
   const { canGoBack, goBack } = useNavigationHistory()
   const { data: event, isLoading } = useEvent(id ?? '')
+
+  // Join dialog
+  const [joinDialogOpen, setJoinDialogOpen] = useState(false)
+
+  function handleJoinSubmit(data: JoinFormData) {
+    // TODO: API 연동 시 실제 참여 요청
+    console.log('Join event:', data)
+  }
 
   // Sticky bar
   const headerRef = useRef<HTMLDivElement>(null)
@@ -198,9 +207,19 @@ export default function EventDetailPage({
 
         {/* Action */}
         {event.status === 'active' && (
-          <button className="w-full bg-primary text-on-primary font-headline font-black text-base uppercase tracking-widest rounded-full py-4 shadow-[0_0_30px_rgba(243,130,255,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-transform">
-            Join Now
-          </button>
+          <>
+            <button
+              onClick={() => setJoinDialogOpen(true)}
+              className="w-full bg-primary text-on-primary font-headline font-black text-base uppercase tracking-widest rounded-full py-4 shadow-[0_0_30px_rgba(243,130,255,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-transform"
+            >
+              Join Now
+            </button>
+            <JoinEventDialog
+              open={joinDialogOpen}
+              onOpenChange={setJoinDialogOpen}
+              onSubmit={handleJoinSubmit}
+            />
+          </>
         )}
 
         {event.status === 'pending' && (
