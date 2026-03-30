@@ -18,7 +18,9 @@ async function fetchEvents(status?: EventStatus): Promise<Event[]> {
   if (status) {
     return MOCK_EVENTS.filter((e) => e.status === status)
   }
-  return MOCK_EVENTS
+  return MOCK_EVENTS.filter((e) => e.status !== 'closed').sort(
+    (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+  )
 }
 
 async function fetchEvent(id: string): Promise<Event | undefined> {
