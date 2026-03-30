@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+/* ===================================================
+ * Theme Tokens — Tailwind v4 CSS-first configuration
+ * 레이아웃 치수, 색상, 타이포, 그림자를 한 곳에서 관리
+ * =================================================== */
+@theme {
+  /* ── Layout Dimensions ── */
+  --header-height: 48px;
+  --bottom-nav-height: 64px;
+  --max-content-width: 1280px;
+
+  /* ── Radius ── */
+  --radius: 1rem;
+
+  /* ── Shadow Levels ── */
+  --shadow-lv1: 0 4px 32px rgba(0, 0, 0, 0.15);
+  --shadow-lv2: 0 8px 48px rgba(0, 0, 0, 0.25);
+  --shadow-lv3: 0 16px 64px rgba(0, 0, 0, 0.40);
+
+  /* ── Colors: Primary ── */
+  --color-primary: #f382ff;
+  --color-primary-fixed: #ed69ff;
+  --color-primary-fixed-dim: #e451f9;
+  --color-primary-dim: #ec63ff;
+  --color-primary-container: #ed69ff;
+  --color-on-primary: #540061;
+  --color-on-primary-fixed: #000000;
+  --color-on-primary-fixed-variant: #51005d;
+  --color-on-primary-container: #41004c;
+  --color-inverse-primary: #a300bb;
+
+  /* ── Colors: Secondary ── */
+  --color-secondary: #a2f31f;
+  --color-secondary-dim: #95e400;
+  --color-secondary-fixed: #a2f31f;
+  --color-secondary-fixed-dim: #95e400;
+  --color-secondary-container: #426900;
+  --color-on-secondary: #365700;
+  --color-on-secondary-fixed: #294300;
+  --color-on-secondary-fixed-variant: #3d6200;
+  --color-on-secondary-container: #ebffcb;
+
+  /* ── Colors: Tertiary ── */
+  --color-tertiary: #81ecff;
+  --color-tertiary-dim: #00d4ec;
+  --color-tertiary-fixed: #00e3fd;
+  --color-tertiary-fixed-dim: #00d4ec;
+  --color-tertiary-container: #00e3fd;
+  --color-on-tertiary: #005762;
+  --color-on-tertiary-fixed: #003840;
+  --color-on-tertiary-fixed-variant: #005762;
+  --color-on-tertiary-container: #004d57;
+
+  /* ── Colors: Error ── */
+  --color-error: #ff6e84;
+  --color-error-dim: #d73357;
+  --color-error-container: #a70138;
+  --color-on-error: #490013;
+  --color-on-error-container: #ffb2b9;
+
+  /* ── Colors: Surface / Background ── */
+  --color-background: #060e20;
+  --color-on-background: #dee5ff;
+  --color-surface: #060e20;
+  --color-surface-dim: #060e20;
+  --color-surface-bright: #1f2b49;
+  --color-surface-tint: #f382ff;
+  --color-surface-variant: #192540;
+  --color-surface-container-lowest: #000000;
+  --color-surface-container-low: #091328;
+  --color-surface-container: #0f1930;
+  --color-surface-container-high: #141f38;
+  --color-surface-container-highest: #192540;
+  --color-on-surface: #dee5ff;
+  --color-on-surface-variant: #a3aac4;
+  --color-inverse-surface: #faf8ff;
+  --color-inverse-on-surface: #4d556b;
+
+  /* ── Colors: Outline ── */
+  --color-outline: #6d758c;
+  --color-outline-variant: #40485d;
+
+  /* ── Typography ── */
+  --font-headline: "Space Grotesk", sans-serif;
+  --font-body: "Manrope", sans-serif;
+  --font-label: "Manrope", sans-serif;
+}
+
+/* ===================================================
+ * Base Styles
+ * =================================================== */
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  font-family: var(--font-body);
+}
+
+/* ===================================================
+ * Z-Index Semantic Layer Utilities
+ * @see setto-app pattern — z-chrome(100) > z-overlay(150) > z-modal(250)
+ * =================================================== */
+@utility z-floating    { z-index: 90; }
+@utility z-chrome      { z-index: 100; }
+@utility z-overlay     { z-index: 150; }
+@utility z-fullscreen  { z-index: 200; }
+@utility z-modal       { z-index: 250; }
+@utility z-modal-nested { z-index: 300; }
+@utility z-toast       { z-index: 300; }
+@utility z-system      { z-index: 400; }
+
+/* ===================================================
+ * Utility Classes
+ * =================================================== */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ===================================================
+ * Effect Classes — glassmorphism, glow, gradients
+ * =================================================== */
+.glass-panel {
+  backdrop-filter: blur(24px);
+  background: rgba(20, 31, 56, 0.6);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(20, 31, 56, 0.7) 0%, rgba(15, 25, 48, 0.4) 100%);
+  backdrop-filter: blur(12px);
+}
+
+.scrim-gradient {
+  background: linear-gradient(to bottom, rgba(6, 14, 32, 0.8) 0%, rgba(6, 14, 32, 0) 40%, rgba(6, 14, 32, 0) 60%, rgba(6, 14, 32, 1) 100%);
+}
+
+.neon-glow-primary   { box-shadow: 0 0 32px rgba(243, 130, 255, 0.15); }
+.neon-glow-secondary { box-shadow: 0 0 24px rgba(162, 243, 31, 0.1); }
+.text-glow           { text-shadow: 0 0 10px rgba(243, 130, 255, 0.4); }
+
+/* ===================================================
+ * Dialog / Modal Animation Keyframes
+ * Used by Dialog primitive — fade, zoom, slide variants
+ * =================================================== */
+@keyframes dialog-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes dialog-zoom-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes dialog-slide-up {
+  from { opacity: 0; transform: translateY(100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes dialog-slide-up-sm {
+  from { opacity: 0; transform: translateY(2rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@utility animate-in          { animation-fill-mode: both; }
+@utility fade-in-0           { animation: dialog-fade-in 200ms ease-out both; }
+@utility zoom-in-95          { animation: dialog-zoom-in 300ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility slide-in-from-bottom { animation: dialog-slide-up 300ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility slide-in-from-bottom-8 { animation: dialog-slide-up-sm 500ms cubic-bezier(0.22, 1, 0.36, 1) both; }

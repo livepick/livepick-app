@@ -1,0 +1,12 @@
+{
+  "nav": { "home": "Home", "following": "Following", "events": "Events", "history": "History", "partner": "Partner" },
+  "common": { "loading": "Loading...", "cancel": "Cancel", "save": "Save", "login": "Login" },
+  "auth": { "signIn": "Sign In", "signInWithGoogle": "Sign in with Google", "joinTheVibe": "JOIN THE VIBE" },
+  "home": { "vibeCheck": "VIBE CHECK", "recommended": "Recommended", "popular": "Popular", "new": "New", "trending": "Trending" },
+  "events": { "livePulse": "LIVE PULSE", "joinNow": "Join Now", "winners": "Winners", "aboutEvent": "About Event" },
+  "partner": { "hub": "Partner Hub", "dashboard": "Dashboard", "createEvent": "Create Event", "manageEvent": "Manage Event" },
+  "follow": { "following": "Following", "yourCreators": "YOUR CREATORS", "follow": "Follow", "unfollow": "Unfollow" },
+  "history": { "title": "History", "participationRecords": "Participation Records" },
+  "profile": { "bio": "Bio", "events": "Events", "followers": "Followers" },
+  "errors": { "notFound": "Not found", "partnerOnly": "Partner only", "loginRequired": "Login required" }
+}

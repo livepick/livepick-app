@@ -1,0 +1,108 @@
+import type { Partner } from '@/features/partner/types'
+
+export const MOCK_PARTNERS: Partner[] = [
+  {
+    id: 'p1',
+    userId: 'u2',
+    channelName: '먹방의 신',
+    channelUrl: 'https://youtube.com/@mukbang_god',
+    category: 'food',
+    bio: '매일 새로운 맛집을 탐방하고, 시청자와 함께 나누는 먹방 채널입니다.',
+    profileImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCyNizw4IJovu6RCpxUaWaQKRhKG2wLD2H2OCKanw9E82FspDiq26svfZW3tcVlzCLUifv2p2cqhVGlphI_5Ot2JpPFZiT5MzwTs7fHkCZgZQ4xkgUiTt7PgbMQVPzx9Bxh2sngzrCPGu3h8v9UC6pgxKLjGicdrkAykJ8VRNVIBMSTN9q0ZiVUxyQmBIesj03kubMJASIWBbMeD-7f0slC_k9HlS-oouv2b6chAfaPgDF-Rm9B5vlkONJH-fzxBK9VqFFOKPzD9eU',
+    followerCount: 1200000,
+    activeEventCount: 3,
+    createdAt: '2025-01-15T00:00:00Z',
+  },
+  {
+    id: 'p2',
+    userId: 'u5',
+    channelName: '게임마스터',
+    channelUrl: 'https://youtube.com/@game_master',
+    category: 'game',
+    bio: 'FPS, RPG, 인디 게임까지 다양한 장르를 리뷰하고 공략하는 게임 채널.',
+    profileImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDxkhLDOgQC13OAJ7uzLsSmza-CemAqVVCMpvSAsMW4XZ2lQjVHLA2Reg3AdBRrYO8b6wNcgaPPGY0nFctnjF18VMOrz_jPv5hs2WHK6R5Kr9z56gq6aYb07HLZdczi-B-7weUZKwI_yAEaUS-jltN2MlWnQwuyGO-kkmifLcLkrhD6-_U7AStnlKQ9NBuemZLVpYcGuHIa5AmJu4_bSbGgwN8iAFW3xJgq8nFs_uVEDXvyQHRhIEgFoU3DyOAMtNMb7uorsw4CNEI',
+    followerCount: 850000,
+    activeEventCount: 2,
+    createdAt: '2025-03-01T00:00:00Z',
+  },
+  {
+    id: 'p3',
+    userId: 'u6',
+    channelName: '뷰티퀸',
+    channelUrl: 'https://youtube.com/@beauty_queen',
+    category: 'beauty',
+    bio: '데일리 메이크업부터 특수 분장까지, 화장으로 세상을 바꾸는 뷰티 채널.',
+    profileImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuALzzr8g7xuV_RSCMJz7Aj6QzYHBd0xDCUSuEjDO2T0l4tHkANOTuQVsqN-3g8Qa09awfYB0FI0rhnJy6l7TtjM3EDe3xNQYAPMfO7QA0zFj3pKygT-SmedXiYz8yLmCnYf2uL7dGuCy_eckRdBGYsSpYPwzdBnoaKdh8PcXDLslRFJamcIiyu9TlGvvDbOMcAvn-SQWL-far_s06NrKfj3JxR_M4yNyV6UejEm-95Kz2undJEsUYYJfQZitjdnW28jKWhpuH5UDkc',
+    followerCount: 2400000,
+    activeEventCount: 5,
+    createdAt: '2025-02-01T00:00:00Z',
+  },
+  {
+    id: 'p4',
+    userId: 'u7',
+    channelName: '테크리뷰어',
+    channelUrl: 'https://youtube.com/@tech_reviewer',
+    category: 'tech',
+    bio: '최신 IT 기기와 소프트웨어를 깊이 있게 분석하는 테크 채널.',
+    profileImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAsj0gxyvsLM7ZppnqjDXSvaCSOaMigGzQ6reUoPAwVATb3Ue9pMUTweTV9-8K5La1CMl2EBIy9gC9zG3uFN8kZm-wPBGkYMJshygZIe5lrJ6kCnTtU4Gi9QNbxYFt7GhQ6fL5ICqFzXnBHCzqsZDKoy60PqPwyopz3QSPcv197XpsC9U0tgh8wNjgZOUatjiyGlocjb4VNryQzfQSceHYHjaRB6bgeLn5_FIZOvHlqB9ut3DpggbNFzfcCoxUf0aIt2vjxJJq_7Jw',
+    followerCount: 3100000,
+    activeEventCount: 1,
+    createdAt: '2025-01-20T00:00:00Z',
+  },
+  {
+    id: 'p5',
+    userId: 'u8',
+    channelName: '비트웨이브',
+    channelUrl: 'https://youtube.com/@beat_wave',
+    category: 'music',
+    bio: '일렉트로닉 뮤직 프로듀서. 라이브 세션과 비트메이킹 튜토리얼.',
+    profileImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuD3zRRrmegUQx6t63_SblT0WvNyxlMdidph_FuBDdjk5FHvVAtxOHR0oFBzNeiVxJo9b6-TnJFbAUDnA_z0olSz7-rEslyAXmxM-gQ6Q_h1XrMcX-3iIScgPRaI7N7JA795_pNOCzUAzK8_qV3OkKIQmJ0BraCTasUsLjL9l_yGb_Y75XKb9PXFUBEGrPpkCBnnj7FBqFhEo1D3l25zqDGDfvvcQLvA4dCrHr6cnwgvFqJH74zn1W7T9ZJDt83FqjHs5xRd4xcgIOg',
+    followerCount: 1800000,
+    activeEventCount: 2,
+    createdAt: '2025-02-15T00:00:00Z',
+  },
+  {
+    id: 'p6',
+    userId: 'u9',
+    channelName: '핏니스킹',
+    channelUrl: 'https://youtube.com/@peak_form',
+    category: 'fitness',
+    bio: '홈트레이닝부터 크로스핏까지 모든 운동 루틴을 공유합니다.',
+    profileImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuA74DCN0uJ1mFHt5k0QwLB5qRqEeQTBEpSSr92Gx4yo5rPvp9MLwdH7CtqGuL-daJhYKkF6lxiFO__KQow5hPhyM2Mc7iwGPINGKccPIrXfLYeffDGB-DCdAJ0jYJH-YnRFbvGM2A6Tqv2V44_vy_AZ65D7qxKZwcPoMWCitc_2DK0rL_j4skzMFybFyvF6YIJF1zfi1NgttcVOWjUtbryEDVr_6DWouUw0F9Tmz-RNWLGOdAMEtGb3UErT2LOpeEYtduA4qPI7mOc',
+    followerCount: 400000,
+    activeEventCount: 12,
+    createdAt: '2025-03-10T00:00:00Z',
+  },
+  {
+    id: 'p7',
+    userId: 'u10',
+    channelName: '럭셔리랩',
+    channelUrl: 'https://youtube.com/@luxury_lab',
+    category: 'lifestyle',
+    bio: '프리미엄 라이프스타일과 럭셔리 아이템 리뷰. 취향을 공유합니다.',
+    profileImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDlhbyib7UEggE4mfSUD-QxAYxmwxWicYF03c8sX22mq3lsvo8Ycxd0AwKP72ccG8xPbxDshq3-R_J3akOPX68Cu3gWhgJ05GLAZyJufEMnDt_9IkWbwd-4y-6R8NVfobW_3fXABDQKvXBVLbvKaDWq3k3Hzu8Pc3zPMM7C4xInvVS2RM-hiAvCY3L0NfNH7_uFTE3wZuu118MYWh8ebRdVjzSDRgCE4tJc5PwXD7OJPIH67Ov2t4MtUif8ymi_r-fYhqveO4aERRA',
+    followerCount: 5100000,
+    activeEventCount: 1,
+    createdAt: '2025-01-05T00:00:00Z',
+  },
+  {
+    id: 'p8',
+    userId: 'u11',
+    channelName: '네오브러시',
+    channelUrl: 'https://youtube.com/@neo_brush',
+    category: 'art',
+    bio: '디지털 아트와 일러스트 제작 과정을 실시간으로 공유하는 아트 채널.',
+    profileImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuD3zRRrmegUQx6t63_SblT0WvNyxlMdidph_FuBDdjk5FHvVAtxOHR0oFBzNeiVxJo9b6-TnJFbAUDnA_z0olSz7-rEslyAXmxM-gQ6Q_h1XrMcX-3iIScgPRaI7N7JA795_pNOCzUAzK8_qV3OkKIQmJ0BraCTasUsLjL9l_yGb_Y75XKb9PXFUBEGrPpkCBnnj7FBqFhEo1D3l25zqDGDfvvcQLvA4dCrHr6cnwgvFqJH74zn1W7T9ZJDt83FqjHs5xRd4xcgIOg',
+    followerCount: 920000,
+    activeEventCount: 8,
+    createdAt: '2025-02-20T00:00:00Z',
+  },
+]
