@@ -9,11 +9,11 @@ export default function EventsPage() {
   const { data: events, isLoading } = useEvents()
 
   return (
-    <Container className="flex flex-col gap-8 lg:gap-10">
+    <Container className="flex flex-col gap-6 lg:gap-8">
       <header className="relative">
         <div className="absolute -top-20 -left-20 w-64 h-64 bg-primary/10 rounded-full blur-[100px]" />
         <div className="relative z-10">
-          <h1 className="font-headline text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-4">
+          <h1 className="font-headline text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] mb-1">
             LIVE<br />
             <span className="text-secondary">PULSE</span>
           </h1>

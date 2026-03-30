@@ -12,7 +12,7 @@ export default function FollowingPage() {
   const { data: partners, isLoading } = useFollowing()
 
   return (
-    <Container className="flex flex-col gap-8 lg:gap-10">
+    <Container className="flex flex-col gap-6 lg:gap-8">
       <SectionHeader
         level="page"
         title={<>FOLLOW<span className="text-secondary italic">ING</span></>}

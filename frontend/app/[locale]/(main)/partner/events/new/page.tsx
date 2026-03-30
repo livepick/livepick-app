@@ -8,6 +8,7 @@ import { SectionHeader } from '@/components/layout/SectionHeader'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { useAuthStore } from '@/stores/authStore'
+import { ArrowLeft } from 'lucide-react'
 import { cn } from '@/lib/cn'
 
 export default function EventCreatePage() {
@@ -55,7 +56,14 @@ export default function EventCreatePage() {
     Number(winnerCount) > 0
 
   return (
-    <Container maxWidth="672px" className="flex flex-col gap-8 lg:gap-10">
+    <Container maxWidth="672px" className="flex flex-col gap-6 lg:gap-8">
+      <Link
+        href="/partner"
+        className="flex items-center gap-1.5 text-on-surface-variant hover:text-on-surface transition-colors w-fit text-sm"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        대시보드
+      </Link>
       <SectionHeader
         level="page"
         title={<>이벤트 <span className="text-secondary italic">생성</span></>}

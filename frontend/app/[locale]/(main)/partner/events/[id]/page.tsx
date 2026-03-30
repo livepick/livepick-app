@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/Button'
 import { EventStatusChip } from '@/features/event/components/EventStatusChip'
 import { useEvent } from '@/features/event/hooks'
 import { useAuthStore } from '@/stores/authStore'
-import { Users, Calendar, Trophy } from 'lucide-react'
+import { Users, Calendar, Trophy, ArrowLeft } from 'lucide-react'
 
 const MOCK_PARTICIPANTS = [
   { id: 'p1', nickname: '행운의별', joinedAt: '2026-03-28T10:00:00Z' },
@@ -85,7 +85,14 @@ export default function EventManagePage({
   }
 
   return (
-    <Container maxWidth="768px" className="flex flex-col gap-8 lg:gap-10">
+    <Container maxWidth="768px" className="flex flex-col gap-6 lg:gap-8">
+      <Link
+        href="/partner"
+        className="flex items-center gap-1.5 text-on-surface-variant hover:text-on-surface transition-colors w-fit text-sm"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        대시보드
+      </Link>
       <header>
         <div className="flex items-center gap-3 mb-4">
           <h1 className="font-headline text-3xl md:text-5xl font-black tracking-tighter text-on-background">

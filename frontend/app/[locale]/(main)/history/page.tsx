@@ -90,7 +90,7 @@ export default function HistoryPage() {
   )
 
   return (
-    <Container className="flex flex-col gap-8 lg:gap-10">
+    <Container className="flex flex-col gap-6 lg:gap-8">
       <SectionHeader
         level="page"
         title={

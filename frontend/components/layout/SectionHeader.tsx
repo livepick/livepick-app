@@ -19,7 +19,7 @@ interface SectionHeaderProps {
 
 export function SectionHeader({ level, title, subtitle, className }: SectionHeaderProps) {
   return (
-    <header className={cn(level === 'page' ? 'mb-12' : 'mb-6', className)}>
+    <header className={cn(className)}>
       {level === 'page' ? (
         <h1 className="font-headline text-4xl md:text-6xl font-black tracking-tighter text-on-background mb-2">
           {title}

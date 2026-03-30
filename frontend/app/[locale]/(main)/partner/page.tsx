@@ -89,7 +89,7 @@ export default function PartnerPage() {
 
   if (!isPartner) {
     return (
-      <Container className="flex flex-col gap-8 lg:gap-10">
+      <Container className="flex flex-col gap-6 lg:gap-8">
         <SectionHeader
           level="page"
           title={<>PARTNER <span className="text-primary italic">HUB</span></>}
@@ -107,7 +107,7 @@ export default function PartnerPage() {
   }
 
   return (
-    <Container className="flex flex-col gap-8 lg:gap-10">
+    <Container className="flex flex-col gap-6 lg:gap-8">
       <div className="flex items-center justify-between">
         <SectionHeader
           level="page"
