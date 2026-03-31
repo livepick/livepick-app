@@ -1,7 +1,10 @@
 'use client'
 
+import { useState } from 'react'
 import { cn } from '@/lib/cn'
 import { Dialog } from '@/components/ui/Dialog'
+import { Input } from '@/components/ui/Input'
+import { Button } from '@/components/ui/Button'
 import { useAuthStore } from '@/stores/authStore'
 
 /* ── Google icon (inline SVG, same as auth page) ── */
@@ -29,6 +32,10 @@ function GoogleIcon() {
   )
 }
 
+/* ── Steps ── */
+
+type AuthStep = 'login' | 'nickname'
+
 /* ── AuthModal ── */
 
 interface AuthModalProps {
@@ -38,52 +45,110 @@ interface AuthModalProps {
 
 export function AuthModal({ open, onOpenChange }: AuthModalProps) {
   const toggleAuth = useAuthStore((s) => s.toggleAuth)
+  const [step, setStep] = useState<AuthStep>('login')
+  const [nickname, setNickname] = useState('')
+  const [error, setError] = useState('')
 
   const handleGoogleSignIn = () => {
-    // TODO: real OAuth — for now toggle mock auth
+    // TODO: real OAuth — for now go to nickname step
+    setStep('nickname')
+  }
+
+  const handleNicknameSubmit = () => {
+    if (nickname.trim().length < 2) {
+      setError('닉네임은 최소 2자 이상이어야 합니다')
+      return
+    }
+    // TODO: save nickname to server
     toggleAuth()
-    onOpenChange(false)
+    handleClose(false)
+  }
+
+  const handleClose = (value: boolean) => {
+    onOpenChange(value)
+    if (!value) {
+      setStep('login')
+      setNickname('')
+      setError('')
+    }
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange} variant="formSheet">
+    <Dialog open={open} onOpenChange={handleClose} variant="formSheet">
       <Dialog.Content>
-        <Dialog.Header
-          title="로그인"
-          description="LivePick에 오신 것을 환영합니다"
-          showHandle
-        />
+        {step === 'login' && (
+          <>
+            <Dialog.Header
+              title="로그인"
+              description="LivePick에 오신 것을 환영합니다"
+              showHandle
+            />
 
-        <Dialog.Body className="space-y-3 pb-2">
-          <button
-            onClick={handleGoogleSignIn}
-            className={cn(
-              'flex items-center justify-center gap-3 w-full px-6 py-3 rounded-xl',
-              'bg-surface-container-high border border-outline-variant/10',
-              'text-on-surface text-sm font-medium',
-              'hover:bg-surface-container-highest transition-colors',
-            )}
-          >
-            <GoogleIcon />
-            Google로 로그인
-          </button>
+            <Dialog.Body className="space-y-3 pb-2">
+              <button
+                onClick={handleGoogleSignIn}
+                className={cn(
+                  'flex items-center justify-center gap-3 w-full px-6 py-3 rounded-xl',
+                  'bg-surface-container-high border border-outline-variant/10',
+                  'text-on-surface text-sm font-medium',
+                  'hover:bg-surface-container-highest transition-colors',
+                )}
+              >
+                <GoogleIcon />
+                Google로 로그인
+              </button>
+            </Dialog.Body>
 
-        </Dialog.Body>
+            <div className="px-6 pb-5 pt-1 text-center space-y-2">
+              <p className="text-xs text-on-surface-variant">
+                계정이 없으신가요?{' '}
+                <button
+                  onClick={handleGoogleSignIn}
+                  className="text-primary font-medium hover:underline"
+                >
+                  회원가입
+                </button>
+              </p>
+              <p className="text-[11px] text-on-surface-variant/50 leading-relaxed">
+                계속하면 서비스 이용약관 및 개인정보처리방침에 동의하게 됩니다
+              </p>
+            </div>
+          </>
+        )}
 
-        <div className="px-6 pb-5 pt-1 text-center space-y-2">
-          <p className="text-xs text-on-surface-variant">
-            계정이 없으신가요?{' '}
-            <button
-              onClick={handleGoogleSignIn}
-              className="text-primary font-medium hover:underline"
-            >
-              회원가입
-            </button>
-          </p>
-          <p className="text-[11px] text-on-surface-variant/50 leading-relaxed">
-            계속하면 서비스 이용약관 및 개인정보처리방침에 동의하게 됩니다
-          </p>
-        </div>
+        {step === 'nickname' && (
+          <>
+            <Dialog.Header
+              title="닉네임 설정"
+              description="LivePick에서 사용할 닉네임을 입력하세요"
+              showHandle
+              showClose
+            />
+
+            <Dialog.Body className="space-y-4 pb-2">
+              <Input
+                label="Nickname"
+                placeholder="닉네임을 입력하세요"
+                value={nickname}
+                onChange={(value) => {
+                  setNickname(value)
+                  if (error) setError('')
+                }}
+                error={error}
+              />
+
+              <Button
+                variant="primary"
+                size="lg"
+                fullWidth
+                onClick={handleNicknameSubmit}
+                disabled={nickname.trim().length === 0}
+              >
+                시작하기
+              </Button>
+            </Dialog.Body>
+          </>
+        )}
       </Dialog.Content>
     </Dialog>
   )

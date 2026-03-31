@@ -2,7 +2,7 @@
 
 import { use, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, Users, Trophy, Clock, Calendar } from 'lucide-react'
+import { ArrowLeft, Users, Trophy, Clock, Calendar, CheckCircle2 } from 'lucide-react'
 import { DetailPageShell } from '@/components/layout/DetailPageShell'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { useEvent } from '@/features/event/hooks'
@@ -12,6 +12,9 @@ import { MOCK_USERS } from '@/mocks/users'
 import { EventStatusChip } from '@/features/event/components/EventStatusChip'
 import { JoinEventDialog, type JoinFormData } from '@/features/event/components/JoinEventDialog'
 import { useNavigationHistory } from '@/hooks/useNavigationHistory'
+
+// Mock: 현재 로그인 사용자 (추후 authStore에서 가져올 것)
+const CURRENT_USER_ID = 'u1'
 
 function formatCount(count: number): string {
   if (count >= 1000) return `${(count / 1000).toFixed(1)}K`
@@ -207,19 +210,34 @@ export default function EventDetailPage({
 
         {/* Action */}
         {event.status === 'active' && (
-          <>
-            <button
-              onClick={() => setJoinDialogOpen(true)}
-              className="w-full bg-primary text-on-primary font-headline font-black text-base uppercase tracking-widest rounded-full py-4 shadow-[0_0_30px_rgba(243,130,255,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-transform"
-            >
-              Join Now
-            </button>
-            <JoinEventDialog
-              open={joinDialogOpen}
-              onOpenChange={setJoinDialogOpen}
-              onSubmit={handleJoinSubmit}
-            />
-          </>
+          (() => {
+            const myParticipation = MOCK_PARTICIPATIONS.find(
+              (p) => p.eventId === event.id && p.userId === CURRENT_USER_ID,
+            )
+            if (myParticipation) {
+              return (
+                <div className="w-full flex items-center justify-center gap-2 bg-surface-container-high text-on-surface-variant font-headline font-black text-base uppercase tracking-widest rounded-full py-4 cursor-default">
+                  <CheckCircle2 className="size-5 text-primary" />
+                  참여완료
+                </div>
+              )
+            }
+            return (
+              <>
+                <button
+                  onClick={() => setJoinDialogOpen(true)}
+                  className="w-full bg-primary text-on-primary font-headline font-black text-base uppercase tracking-widest rounded-full py-4 shadow-[0_0_30px_rgba(243,130,255,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-transform"
+                >
+                  Join Now
+                </button>
+                <JoinEventDialog
+                  open={joinDialogOpen}
+                  onOpenChange={setJoinDialogOpen}
+                  onSubmit={handleJoinSubmit}
+                />
+              </>
+            )
+          })()
         )}
 
         {event.status === 'pending' && (
@@ -232,11 +250,37 @@ export default function EventDetailPage({
         )}
 
         {event.status === 'closed' && (
-          <div className="rounded-2xl bg-surface-container-low px-5 py-4 text-center">
-            <span className="text-sm text-on-surface-variant">
-              이벤트가 마감되었습니다
-            </span>
-          </div>
+          (() => {
+            const myParticipation = MOCK_PARTICIPATIONS.find(
+              (p) => p.eventId === event.id && p.userId === CURRENT_USER_ID,
+            )
+            if (myParticipation?.status === 'won') {
+              return (
+                <div className="rounded-2xl bg-secondary/10 border border-secondary/30 px-5 py-4 flex items-center justify-center gap-2">
+                  <Trophy className="size-5 text-secondary" />
+                  <span className="text-sm font-bold text-secondary">
+                    축하합니다! 당첨되었습니다
+                  </span>
+                </div>
+              )
+            }
+            if (myParticipation?.status === 'lost') {
+              return (
+                <div className="rounded-2xl bg-surface-container-low px-5 py-4 text-center">
+                  <span className="text-sm text-on-surface-variant">
+                    아쉽게도 당첨되지 않았습니다
+                  </span>
+                </div>
+              )
+            }
+            return (
+              <div className="rounded-2xl bg-surface-container-low px-5 py-4 text-center">
+                <span className="text-sm text-on-surface-variant">
+                  이벤트가 마감되었습니다
+                </span>
+              </div>
+            )
+          })()
         )}
       </div>
 
